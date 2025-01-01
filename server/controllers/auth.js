@@ -19,7 +19,11 @@ export const register = async (req, res) => {
 
     const savedUser = await newUser.save();
 
-    res.status(201).json(savedUser);
+    const savedUserJson = savedUser.toJSON();
+
+    delete savedUserJson.password;
+
+    res.status(201).json(savedUserJson);
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
@@ -31,13 +35,14 @@ export const login = async (req, res) => {
   try {
     const { email, password } = req.body;
 
-    const user = await User.findOne({ email: email });
-    if (!user) return res.status(400).json({ msg: "User does not exists." });
+    const userObj = await User.findOne({ email: email });
+    if (!userObj) return res.status(400).json({ msg: "User does not exists." });
 
-    const isMatch = await bcrypt.compare(password, user.password);
+    const isMatch = await bcrypt.compare(password, userObj.password);
     if (!isMatch) return res.status(400).json({ msg: "Invalid credentails." });
 
-    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
+    const token = jwt.sign({ id: userObj._id }, process.env.JWT_SECRET);
+    const user = userObj.toJSON();
     delete user.password;
     res.status(200).json({ token, user });
   } catch (err) {

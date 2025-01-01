@@ -8,6 +8,7 @@ const UserSchema = new mongoose.Schema(
       required: true,
       min: 2,
       max: 50,
+      unique: true,
     },
     email: {
       type: String,
@@ -21,6 +22,11 @@ const UserSchema = new mongoose.Schema(
       required: true,
       min: 8,
       max: 50,
+    },
+    score: {
+      type: Number,
+      required: true,
+      default: 0,
     },
   },
   { timestamps: true }
