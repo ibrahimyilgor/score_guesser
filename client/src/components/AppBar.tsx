@@ -12,20 +12,25 @@ import AccountCircle from '@mui/icons-material/AccountCircle';
 import SportsSoccerIcon from '@mui/icons-material/SportsSoccer';
 import SettingsIcon from '@mui/icons-material/Settings';
 import { Chip } from '@mui/material';
+import { useTranslation } from 'react-i18next';
+import i18n from '../i18n';
+import { colors } from '../constants/color';
 
 export default function ButtonAppBar() {
+  const {t} = useTranslation()
+  console.log(i18n.language)
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static" sx={{backgroundColor: '#28A745'}}>
+      <AppBar position="static" sx={{backgroundColor: colors.dark.green}}>
         <Toolbar>
-            <SportsSoccerIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
+          <SportsSoccerIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
           <Typography variant="h6" component="div" sx={{ flexGrow: 1, userSelect: "none" }}>
             Score Guesser
           </Typography>
           <Box>
-            <Chip icon={<SportsSoccerIcon color="inherit"/>} label="123556" sx={{backgroundColor: "#FFC107", color: "#343A40", mr: 1, userSelect: "none"}}/>
-            <Chip icon={<AccountCircle color="inherit"/>} label="Giriş" sx={{ backgroundColor: "#FFC107", color: "#343A40", mr: 1, userSelect: "none", cursor: "pointer"}}/>
-            <Chip icon={<AccountCircle color="inherit"/>} label="Kayıt" sx={{ backgroundColor: "#FFC107", color: "#343A40", mr: 1, userSelect: "none", cursor: "pointer"}}/>
+            <Chip icon={<SportsSoccerIcon color="inherit"/>} label="123556" sx={{backgroundColor: colors.dark.primary, color: colors.dark.secondary, mr: 1, userSelect: "none"}}/>
+            <Chip icon={<AccountCircle color="inherit"/>} label={t('register')} sx={{ backgroundColor: colors.dark.primary, color: colors.dark.secondary, mr: 1, userSelect: "none", cursor: "pointer"}}/>
+            <Chip icon={<AccountCircle color="inherit"/>} label={t("login")} sx={{ backgroundColor: colors.dark.primary, color: colors.dark.secondary, mr: 1, userSelect: "none", cursor: "pointer"}}/>
             <IconButton
               size="large"
               aria-label="show 17 new notifications"
